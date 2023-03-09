@@ -1,17 +1,4 @@
-/*
-This code is a countdown timer that:
-
-- Imports libraries for the date and time picker and notification messages.
-- Disables the start button by default.
-- Initializes the Flatpickr instance with options.
-- Defines variables and functions for the countdown timer.
-- Adds an event listener to the start button to start the countdown when clicked,
-  updating the timer instantly and setting an interval to call the update function every second
-  while disabling the button untill new date is selected.
-- Calculates the time difference between the target date and the current date and time
-  then updates the timer elements with the calculated time difference.
-- Stops the countdown when the time difference is 0.
-*/
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import flatpickr from 'flatpickr';                           // npm i flatpickr --save
 import 'flatpickr/dist/flatpickr.min.css';
@@ -53,7 +40,7 @@ const options = {    //flatpickr options
   minuteIncrement: 1,
   onClose(selectedDates) {
     if (selectedDates[0] <= options.defaultDate) {
-      window.alert('Please select a date in the future.');
+      Notify.failure('Please select a date in the future.');
     } else {
       startButton.disabled = false;
       console.log(selectedDates[0]);
@@ -63,8 +50,8 @@ const options = {    //flatpickr options
 
 const flatpickrInstance = flatpickr('#datetime-picker', options); // initialize flatpickr instance
 
-// function that pads the timer values
-function addLeadingZero(value) {
+
+function addLeadingZero(value) {                 // function that pads the timer values
   return value.toString().padStart(2, '0');
 }
 
